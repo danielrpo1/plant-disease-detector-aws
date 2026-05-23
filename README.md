@@ -25,9 +25,10 @@ Documentación completa con diagramas de flujo: [`docs/ARQUITECTURA_AWS.md`](doc
 | Servicio | URL |
 |----------|-----|
 | **Repositorio** | https://github.com/danielrpo1/plant-disease-detector-aws |
-| **Web Ojoverde (S3)** | http://plant-web-darestrepo-eafit.s3-website-us-east-1.amazonaws.com |
-| **API FastAPI** | http://18.188.204.143:8000 |
-| **Swagger** | http://18.188.204.143:8000/docs |
+| **App Ojoverde (recomendada)** | **http://18.188.204.143/** |
+| **Swagger** | http://18.188.204.143/docs |
+| **Admin** | http://18.188.204.143/admin/ |
+| Web estática S3 (opcional) | http://plant-web-darestrepo-eafit.s3-website-us-east-1.amazonaws.com |
 
 ## Estado del despliegue
 
@@ -63,6 +64,14 @@ plant-disease-detector-aws/
 ## Equipo
 
 Proyecto integrador EAFIT — mismo equipo que [plant-disease-detector](https://github.com/danielrpo1/plant-disease-detector).
+
+| Integrante | GitHub |
+|------------|--------|
+| Daniel Restrepo | [@danielrpo1](https://github.com/danielrpo1) |
+| Obeney Londoño | [@Obeney](https://github.com/Obeney) |
+| E-DOR28 | [@E-DOR28](https://github.com/E-DOR28) |
+| Eider Díaz | [@EiderDiaz-10](https://github.com/EiderDiaz-10) |
+| Valentina Delgado | [@ValenDelgado](https://github.com/ValenDelgado) |
 
 ## Free tier
 
