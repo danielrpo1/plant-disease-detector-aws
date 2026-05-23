@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ojoverde — Diagnóstico de hojas (AWS)</title>
+  <meta name="description" content="Identifica cultivos y enfermedades de hojas con ResNet-50 en servidor AWS." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='none' stroke='%232d6a4f' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%2340916c'/%3E%3Cpath d='M16 11c0-3 2-5 4-5s3 2 2 4c-2 1-3 3-3 5' fill='%232d6a4f'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <div class="brand" aria-label="Ojoverde">
+        <svg class="logo-isotipo" width="40" height="40" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="16" cy="16" r="4.5" fill="currentColor" opacity="0.35"/>
+          <path d="M16 10.5c0-2.8 1.8-4.8 3.8-4.8 1.8 0 2.8 1.4 2.2 3-.7 1.2-2 2.2-3.2 3.8-1.2 1.4-2 3-2 4.7" fill="currentColor"/>
+        </svg>
+        <div class="brand-text">
+          <span class="wordmark">Ojoverde</span>
+          <span class="tagline">Diagnóstico de hojas · AWS</span>
+        </div>
+      </div>
+      <p id="apiHint" class="mode-caption" role="status">ResNet-50 en servidor · S3 + PostgreSQL</p>
+    </header>
+
+    <aside class="callout callout-warning" aria-label="Alcance del modelo">
+      <svg class="callout-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M12 2L1 21h22L12 2zm0 4.5L18.5 19h-13L12 6.5zM11 10h2v5h-2v-5zm0 6h2v2h-2v-2z"/>
+      </svg>
+      <div>
+        <p><strong>Solo reconoce 14 cultivos</strong> (manzana, tomate, papa, maíz, uva, etc.). Si la hoja es de otra planta, el sistema puede equivocarse aunque muestre porcentaje alto.</p>
+        <details class="crops-details">
+          <summary>Ver cultivos incluidos (38 clases PlantVillage)</summary>
+          <p class="info-foot">Modelo: ResNet-50 (timm) · datos PlantVillage. No sustituye diagnóstico de campo.</p>
+        </details>
+      </div>
+    </aside>
+
+    <section class="upload-section" aria-labelledby="upload-heading">
+      <h2 id="upload-heading" class="visually-hidden">Subir imagen</h2>
+      <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Arrastra una imagen o toca para elegir archivo">
+        <p class="drop-zone-text">Arrastra una foto de hoja aquí</p>
+        <p class="drop-zone-hint">o</p>
+        <label class="btn btn-secondary">
+          <input type="file" id="fileInput" accept="image/*" capture="environment" class="visually-hidden" />
+          Elegir imagen
+        </label>
+      </div>
+
+      <div id="previewBlock" class="preview-block hidden">
+        <div id="preview" class="preview"></div>
+        <p id="fileMeta" class="file-meta"></p>
+        <button type="button" id="btnClear" class="btn btn-ghost btn-sm">Quitar</button>
+      </div>
+    </section>
+
+    <div id="loading" class="loading hidden" role="status" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span>
+      <span>Enviando a AWS…</span>
+    </div>
+
+    <div id="results" class="results hidden" role="status" aria-live="polite"></div>
+    <p id="error" class="error hidden" role="alert"></p>
+
+    <div class="analyze-bar" id="analyzeBar">
+      <button type="button" id="btnPredict" class="btn btn-primary" disabled>Analizar</button>
+    </div>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
